@@ -157,8 +157,19 @@
 <audio src="ringtone.mp3" id="notificationSound"></audio>
 
 <script>
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(function(swReg) {
+                console.log('Service Worker is registered', swReg);
+            })
+            .catch(function(error) {
+                console.error('Service Worker Error', error);
+            });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         loadReminders();
+        requestNotificationPermission();
     });
 
     function scheduleReminder() {
@@ -167,7 +178,7 @@
         var date = document.getElementById("date").value;
         var time = document.getElementById("time").value;
 
-        var dateTimeString = date + "T" + time; // Combine date and time with T separator
+        var dateTimeString = date + "T" + time; 
         var scheduledTime = new Date(dateTimeString);
         var currentTime = new Date();
         var timeDifference = scheduledTime - currentTime;
@@ -176,36 +187,36 @@
             addReminder(title, description, dateTimeString);
             saveReminder({ title: title, description: description, dateTimeString: dateTimeString });
 
-            setTimeout(function () {
-                var audio = document.getElementById("notificationSound");
-                if (audio) {
-                    audio.play();
-                    audio.onended = function() {
-                        deleteReminderButton();
-                    }
-                }
-
-                if (Notification.permission === "granted") {
-                    var notification = new Notification("Reminder", {
-                        body: title + ": " + description,
-                        icon: "notification_icon.png"
-                    });
-                } else if (Notification.permission !== 'denied') {
-                    Notification.requestPermission().then(function(permission) {
-                        if (permission === "granted") {
-                            var notification = new Notification("Reminder", {
-                                body: title + ": " + description,
-                                icon: "notification_icon.png"
-                            });
-                        }
-                    });
-                }
+            setTimeout(function() {
+                triggerNotification(title, description);
             }, timeDifference);
         } else {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "The scheduled time is in the past",
+            });
+        }
+    }
+
+    function triggerNotification(title, description) {
+        navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification(title, {
+                body: description,
+                icon: 'notification_icon.png',
+                data: window.location.href
+            });
+        });
+    }
+
+    function requestNotificationPermission() {
+        if (Notification.permission !== 'granted') {
+            Notification.requestPermission().then(function(permission) {
+                if (permission === "granted") {
+                    console.log("Notification permission granted.");
+                } else {
+                    console.log("Notification permission denied.");
+                }
             });
         }
     }
@@ -263,29 +274,7 @@
 
                 var timeDifference = scheduledTime - currentTime;
                 setTimeout(function() {
-                    var audio = document.getElementById("notificationSound");
-                    if (audio) {
-                        audio.play();
-                        audio.onended = function() {
-                            deleteReminderButton();
-                        }
-                    }
-
-                    if (Notification.permission === "granted") {
-                        var notification = new Notification("Reminder", {
-                            body: reminder.title + ": " + reminder.description,
-                            icon: "notification_icon.png"
-                        });
-                    } else if (Notification.permission !== 'denied') {
-                        Notification.requestPermission().then(function(permission) {
-                            if (permission === "granted") {
-                                var notification = new Notification("Reminder", {
-                                    body: reminder.title + ": " + reminder.description,
-                                    icon: "notification_icon.png"
-                                });
-                            }
-                        });
-                    }
+                    triggerNotification(reminder.title, reminder.description);
                 }, timeDifference);
             }
         });
