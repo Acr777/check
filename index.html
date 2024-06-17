@@ -16,117 +16,116 @@
             min-height: 100vh;
             background-image: url("i10.webp");
         }
-css
-Copy code
-    .container {
-        width: 90%;
-        max-width: 500px;
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        overflow: hidden;
-    }
 
-    h1 {
-        margin-bottom: 20px;
-        color: #333;
-        font-size: 28px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-    }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow: hidden;
+        }
 
-    input[type="text"],
-    input[type="date"],
-    input[type="time"] {
-        border: 1px solid #f27900;
-        width: calc(100% - 20px);
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 25px;
-        background-color: rgba(255, 255, 255, 0.8);
-        box-sizing: border-box;
-        font-size: 16px;
-    }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
 
-    button {
-        width: calc(100% - 20px);
-        padding: 15px;
-        margin: 10px 0;
-        border: none;
-        border-radius: 25px;
-        background-color: rgba(255, 255, 255, 0.8);
-        box-sizing: border-box;
-        font-size: 16px;
-        transition: 0.3s;
-    }
+        input[type="text"],
+        input[type="date"],
+        input[type="time"] {
+            border: 1px solid #f27900;
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-sizing: border-box;
+            font-size: 16px;
+        }
 
-    input[type="text"]:focus,
-    input[type="date"]:focus,
-    input[type="time"]:focus {
-        border: 1px solid #f27900;
-    }
+        button {
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: 0.3s;
+        }
 
-    button:focus {
-        outline: none;
-        background-color: #f27900;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="time"]:focus {
+            border: 1px solid #f27900;
+        }
 
-    button {
-        background-color: #f27900;
-        color: #fff;
-        cursor: pointer;
-        transition: none;
-    }
+        button:focus {
+            outline: none;
+            background-color: #f27900;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
 
-    button:hover {
-        border: 1px solid #f27900;
-        background-color: #fff;
-        color: #f27900;
-    }
+        button {
+            background-color: #f27900;
+            color: #fff;
+            cursor: pointer;
+            transition: none;
+        }
 
-    button#setReminderButton {
-        visibility: visible !important;
-    }
+        button:hover {
+            border: 1px solid #f27900;
+            background-color: #fff;
+            color: #f27900;
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
+        button#setReminderButton {
+            visibility: visible !important;
+        }
 
-    th,
-    td {
-        padding: 15px;
-        border-bottom: 1px solid #ddd;
-        color: #555;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-    th {
-        background-color: #f27900;
-        color: #fff;
-        text-transform: uppercase;
-        font-size: 14px;
-    }
+        th,
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            color: #555;
+        }
 
-    .delete-button {
-        background-color: #ff5f5f;
-        color: #fff;
-        border: none;
-        border-radius: 25px;
-        padding: 10px 20px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+        th {
+            background-color: #f27900;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
 
-    .delete-button:hover {
-        background-color: #ff8585;
-    }
-</style>
+        .delete-button {
+            background-color: #ff5f5f;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #ff8585;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -139,22 +138,22 @@ Copy code
     <input type="date" id="date" />
     <label for="time">Time:</label>
     <input type="time" id="time" />
-php
-Copy code
-<button id="setReminderButton" onclick="scheduleReminder();">Schedule Reminder</button>
 
-<table>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Date & Time</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody id="reminderTableBody"></tbody>
-</table>
+    <button id="setReminderButton" onclick="scheduleReminder();">Schedule Reminder</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date & Time</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="reminderTableBody"></tbody>
+    </table>
 </div>
+
 <audio src="ringtone.mp3" id="notificationSound"></audio>
 
 <script>
@@ -294,3 +293,4 @@ Copy code
 </script>
 </body>
 </html>
+
